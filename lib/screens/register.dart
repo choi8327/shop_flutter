@@ -85,13 +85,12 @@ class PasswordConfirmInput extends StatelessWidget {
     );
   }
 }
-
 class RegistButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authClient =
     Provider.of<FirebaseAuthProvider>(context, listen: false);
-    final register = Provider.of<RegisterModel>(context, listen: false);
+    final register = Provider.of<RegisterModel>(context);
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
       height: MediaQuery.of(context).size.height * 0.05,
@@ -101,7 +100,7 @@ class RegistButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(30.0),
           ),
         ),
-        onPressed: () async {
+        onPressed: (register.password != register.passwordConfirm) ? null : () async {
           await authClient
               .registerWithEmail(register.email, register.password)
               .then((registerStatus) {
