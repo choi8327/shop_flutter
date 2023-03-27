@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_testshop/screens/detail.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_testshop/screens/register.dart';
 import 'package:flutter_testshop/firebase_options.dart';
 import 'package:flutter_testshop/models/auth.dart';
 import 'models/Provider.dart';
+import 'models/query.dart';
 import 'screens/index.dart';
 import 'screens/login.dart';
 import 'screens/splash.dart';
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => FirebaseAuthProvider()),
         ChangeNotifierProvider(create: (_) => ItemProvider()),
+        ChangeNotifierProvider(create: (_) => QueryProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Shop',
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/splash': (context) => SplashScreen(),
           '/register': (context) => RegisterScreen(),
+          '/detail': (context) => DetailScreen(),
         },
         initialRoute: '/splash',
       ),

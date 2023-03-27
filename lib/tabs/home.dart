@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/Provider.dart';
 
-class TabHome extends StatelessWidget{
-
+class TabHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemProvider = Provider.of<ItemProvider>(context);
@@ -25,26 +24,29 @@ class TabHome extends StatelessWidget{
               itemBuilder: (context, index) {
                 return GridTile(
                     child: InkWell(
-                      onTap: () { },
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.network(itemProvider.items[index].imageUrl),
-                            Text(
-                              itemProvider.items[index].title,
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            Text(itemProvider.items[index].price.toString() + '원',
-                              style: TextStyle(fontSize: 16, color: Colors.red),)
-                          ],
+                  onTap: () {
+                    Navigator.pushNamed(context, '/detail',
+                        arguments: itemProvider.items[index]);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(itemProvider.items[index].imageUrl),
+                        Text(
+                          itemProvider.items[index].title,
+                          style: TextStyle(fontSize: 20),
                         ),
-                      ),
-                    )
-                );
-              }
-          );
+                        Text(
+                          itemProvider.items[index].price.toString() + '원',
+                          style: TextStyle(fontSize: 16, color: Colors.red),
+                        )
+                      ],
+                    ),
+                  ),
+                ));
+              });
         }
       },
     );
