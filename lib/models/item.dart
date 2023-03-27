@@ -29,4 +29,26 @@ class Item {
     price = data['price'];
     registerDate = data['registerDate'];
   }
+
+  Item.fromMap(Map<String, dynamic> data) {
+    id = data['id'];
+    title = data['title'];
+    brand = data['brand'];
+    description = data['description'];
+    imageUrl = data['imageUrl'];
+    price = data['price'];
+    registerDate = data['registerDate'];
+  }
+
+  Map<String, dynamic> toSnapshot() {
+    return {
+      'id': id,
+      'title': title,
+      'brand': brand,
+      'description': description,
+      'imageUrl':imageUrl,
+      'price':price,
+      'registerDate':registerDate
+    };
+  }
 }

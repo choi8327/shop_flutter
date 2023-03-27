@@ -41,6 +41,12 @@ class _IndexScreenState extends State<IndexScreen> {
           setState(() {
             _currentIndex = index;
           });
+          if (index == 1) {
+            setState(() {
+              _currentIndex = 0;
+            });
+            Navigator.pushNamed(context, '/search');
+          }
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),

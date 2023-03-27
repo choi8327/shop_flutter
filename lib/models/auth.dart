@@ -2,12 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum AuthStatus {
-  registerSuccess,
-  registerFail,
-  loginSuccess,
-  loginFail
-}
+enum AuthStatus { registerSuccess, registerFail, loginSuccess, loginFail }
 
 class FirebaseAuthProvider with ChangeNotifier {
   FirebaseAuth authClient;
@@ -27,28 +22,29 @@ class FirebaseAuthProvider with ChangeNotifier {
 
   Future<AuthStatus> loginWithEmail(String email, String password) async {
     try {
-      await authClient.signInWithEmailAndPassword(
-          email: email, password: password).then(
-              (credential) async {
-            user = credential.user;
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setBool('isLogin', true);
-            prefs.setString('email', email);
-            prefs.setString('password', password);
-          }
-      );
+      await authClient
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((credential) async {
+        user = credential.user;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isLogin', true);
+        prefs.setString('email', email);
+        prefs.setString('password', password);
+        prefs.setString('uid', user!.uid);
+      });
       return AuthStatus.loginSuccess;
     } catch (e) {
       return AuthStatus.loginFail;
     }
   }
 
-  Future<void> logout() async{
+  Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLogin', false);
     prefs.setString('email', '');
     prefs.setString('password', '');
+    prefs.setString('uid', '');
     user = null;
     await authClient.signOut();
-  }     // 로그아웃
+  }
 }
