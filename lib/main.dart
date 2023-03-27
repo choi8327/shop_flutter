@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_testshop/screens/register.dart';
 import 'package:flutter_testshop/firebase_options.dart';
 import 'package:flutter_testshop/models/auth.dart';
+import 'models/Provider.dart';
 import 'screens/index.dart';
 import 'screens/login.dart';
 import 'screens/splash.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => FirebaseAuthProvider()),
+        ChangeNotifierProvider(create: (_) => ItemProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Shop',
